@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 不是原地算法
+    // var rotate = function (nums, k) {
+    //   var newAry = [];
+    //   nums.forEach((item, index, ary) => {
+    //     index += k
+    //     if (index >= ary.length) index -= ary.length;
+    //     newAry[index] = item;
+    //   })
+    //   return newAry;
+    // };
+    // 一种
+    // var rotate = function (nums, k) {
+    //   while (k > 0) {
+    //     nums.unshift(nums.pop())
+    //     k--
+    //   }
+    //   return nums;
+    // };
+    // 第二种
+    var rotate = function (nums, k) {
+      if (k > nums.length) k %= nums.length
+      nums.unshift(...nums.splice(-k,k))
+      return nums;
+    };
+
+
+    console.log(rotate([1, 2, 3, 4, 5, 6, 7], 1));
+    console.log(rotate([1, 2, 3, 4, 5, 6, 7], 2));
+    console.log(rotate([1, 2, 3, 4, 5, 6, 7], 3));
+  </script>
+</body>
+
+</html>

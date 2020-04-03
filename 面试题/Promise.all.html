@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise.all</title>
+</head>
+
+<body>
+    <div>
+        <!-- 'http://chengsancai.club:3000/search/default' -->
+    </div>
+</body>
+<script>
+    // 在外面定义一个fecth
+    async function fecthAPI(url) {
+        return (await fetch(url)).json();
+    }
+
+    async function promiseAll() {
+        try {
+
+            // Promise.all 参数为数组 数组里面放Promise对象  全部都成功的话 返回一个数组 失败的话返回的是第一个失败 promise 的结果。
+            const res = await Promise.all([fecthAPI('http://chengsancai.club:3000/search/default'), fecthAPI(
+                'http://chengsancai.club:3000/search/hot'), fecthAPI(
+                'http://chengsancai.club:3000/top/playlist')])
+
+            console.log(res);
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    promiseAll();
+</script>
+
+</html>

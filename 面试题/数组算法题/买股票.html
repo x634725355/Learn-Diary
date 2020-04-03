@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
+
+    // 设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。
+
+    // 注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+
+
+    /**
+     * @param {number[]} prices
+     * @return {number}
+     */
+
+    var arr = [1, 2, 3, 4, 5];
+    var newNum = [];
+    var nextNum = 0;
+    var maxProfit = function (prices) {
+        var max = 0;
+        var flag = false;
+        for (var i = 0; i < arr.length - 1; i++) {
+            if (flag) {
+                flag = false;
+                continue;
+            }
+
+            for (var j = i; j < arr.length; j++) {
+
+                if (arr[i] < arr[j + 1]) {
+                    newNum[i] = arr[j] - arr[i];
+                }
+                nextNum = arr[j + 1] - arr[i];
+                if (nextNum >= newNum) {
+                    newNum[i] = nextNum;
+                }
+
+            }
+
+            if (arr[i] < arr[i + 1]) {
+                max += arr[i + 1] - arr[i];
+                flag = true;
+            }
+
+        }
+        newNum = newNum.filter(item => {
+            return (typeof item) == "number";
+        });
+        // console.log(newNum);
+        // console.log(Math.max(...newNum));
+        if (max < Math.max(...newNum)) {
+            max = Math.max(...newNum);
+        }
+
+        return max;
+    };
+    var max = maxProfit(arr);
+    console.log(max);
+</script>
+
+</html>

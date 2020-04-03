@@ -1,0 +1,208 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            left: 0;
+        }
+
+        div {
+            width: 350px;
+            height: 200px;
+            background-color: blueviolet;
+        }
+
+        .bodys {
+            margin-top: 50px;
+            padding-bottom: 52px;
+            position: absolute;
+            top: 1.39rem;
+            left: 300px;
+            right: 0;
+            overflow: hidden;
+            /* background: #fff; */
+            -webkit-transition: -webkit-transform .4s cubic-bezier(.55, 0, .1, 1);
+            transition: -webkit-transform .4s cubic-bezier(.55, 0, .1, 1);
+            transition: transform .4s cubic-bezier(.55, 0, .1, 1);
+            transition: transform .4s cubic-bezier(.55, 0, .1, 1), -webkit-transform .4s cubic-bezier(.55, 0, .1, 1);
+        }
+
+        @-webkit-keyframes slideInLeft {
+            0% {
+                -webkit-transform: translate3d(-100%, 0, 0);
+                transform: translate3d(-100%, 0, 0);
+                visibility: visible
+            }
+
+            to {
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0)
+            }
+        }
+
+        @keyframes slideInLeft {
+            0% {
+                -webkit-transform: translate3d(-100%, 0, 0);
+                transform: translate3d(-100%, 0, 0);
+                visibility: visible
+            }
+
+            to {
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0)
+            }
+        }
+
+        .slideInLeft {
+            -webkit-animation-name: slideInLeft;
+            animation-name: slideInLeft
+        }
+
+        @-webkit-keyframes slideInRight {
+            0% {
+                -webkit-transform: translate3d(100%, 0, 0);
+                transform: translate3d(100%, 0, 0);
+                visibility: visible
+            }
+
+            to {
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0)
+            }
+        }
+
+        @keyframes slideInRight {
+            0% {
+                -webkit-transform: translate3d(100%, 0, 0);
+                transform: translate3d(100%, 0, 0);
+                visibility: visible
+            }
+
+            to {
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0)
+            }
+        }
+
+        .slideInRight {
+            -webkit-animation-name: slideInRight;
+            animation-name: slideInRight
+        }
+        /* 修改时间曲线 */
+        .animated {
+            -webkit-animation-duration: 2s;
+            animation-duration: 2s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both
+        }
+
+        @media (prefers-reduced-motion:reduce),
+        (print) {
+            .animated {
+                -webkit-animation-duration: 1ms !important;
+                animation-duration: 1ms !important;
+                -webkit-transition-duration: 1ms !important;
+                transition-duration: 1ms !important;
+                -webkit-animation-iteration-count: 1 !important;
+                animation-iteration-count: 1 !important
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button class="left">左</button>
+    <button class="right">右</button>
+    <br />
+    <div class="bodys"></div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    $(function () {
+        $(".left").click(function () {
+            $(".bodys").toggleClass("slideInLeft animated");
+        });
+
+        $(".right").click(function () {
+            $(".bodys").toggleClass("slideInRight animated");
+        });
+
+    })
+</script>
+
+</html> -->
+
+<!-- 特效左右平移 -->
+
+<!-- 懒加载 -->
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="./blazy-master/blazy.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            width: 80%;
+            height: 50%;
+            display: block;
+        }
+
+        body {
+            margin-top: 1000px;
+            height: 300%;
+        }
+
+        .login {}
+    </style>
+</head>
+
+<body>
+    <img class="big" data-src="./images/beautiful-mobile-wallpaper-motion-2170473.jpg"
+        src="http://dinbror.dk/blazy/assets/loader.gif" alt="">
+    <img class="big" data-src="./images/4k-wallpaper-calm-waters-dark-1252869.jpg" src="http://dinbror.dk/blazy/assets/loader.gif"
+        alt="">
+    <img class="big" data-src="./images/adventure-alpine-climb-869258.jpg" src="http://dinbror.dk/blazy/assets/loader.gif" alt="">
+    <img class="big" data-src="./images/audience-celebration-crowd-2893330.jpg" src="http://dinbror.dk/blazy/assets/loader.gif"
+        alt="">
+</body>
+<script>
+    ;
+    $(function () {
+        var bLazy = new Blazy({
+            selector: '.big',
+            offset: 50
+            // error: function (ele, msg) {
+            //     console.log(ele);
+            //     console.log(msg);
+            //     if (msg === "missing") {
+            //         $('img').each(function (idx, ele) {
+            //             $(ele).prop('src', $("img").eq(idx).attr('data-src'))
+            //         });
+            //     } else if (msg == 'invalid') {
+            //         $('img').each(function (idx, ele) {
+            //             $(ele).prop('src', $("img").eq(idx).attr('data-src'))
+            //         });
+            //     }
+            // },
+        });
+    })
+</script>
+
+</html> -->

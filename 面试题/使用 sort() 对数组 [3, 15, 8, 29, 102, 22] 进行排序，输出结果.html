@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const ary = [3, 15, 8, 29, 102, 22];
+        
+        // sort() 方法可以传一个函数 如果不传函数 那么就会将每个数组元素转换为字符串 然后比较字符串中字符的UTF-16编码顺序来进行排序
+        console.log(ary.sort()); // [102, 15, 22, 29, 3, 8]
+
+        // 如果sort()传入一个函数 
+        console.log(ary.sort((a,b) => a-b));
+        // 当返回值大于 0 时 交换a,b的数组位置
+        // 当返回值小于等于0
+        
+        
+        
+    </script>
+</body>
+</html>

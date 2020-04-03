@@ -1,0 +1,194 @@
+<!-- 页面框架 -->
+<!Doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+    <title>纯css度熊</title>
+    <link rel="stylesheet" href="./bear.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            height: 100%;
+            background-color: #333;
+        }
+
+        .bac {
+            width: 345px;
+            height: 500px;
+            top: 50%;
+            position: relative;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* 脸 */
+        .bac .head {
+            width: 346px;
+            height: 288px;
+            border: 3px solid #a57662;
+            background-color: #e1b79b;
+            border-radius: 50% 50% 50% 50% / 70% 60% 40% 40%;
+            position: relative;
+            z-index: 88;
+        }
+
+        /* 左耳朵,右耳朵 */
+        .earLeft,
+        .earRight {
+            height: 50px;
+            width: 70px;
+            border-radius: 200px 200px 100px 100px;
+            border: 3px solid #a57662;
+            position: absolute;
+            /* background-color: #e1b79b; */
+            top: 10px;
+        }
+
+        /* 左耳朵 */
+        .earLeft {
+            left: 12px;
+            transform: rotate(-49deg);
+        }
+
+        /* 右耳朵 */
+        .earRight {
+            transform: rotate(49deg);
+            right: 12px;
+        }
+
+        /* 左眼白 */
+        .head .eyeLeft {
+            height: 78px;
+            width: 67px;
+            background-color: #fff;
+            border-radius: 50% / 50%;
+            transform: rotate(20deg);
+            position: absolute;
+            top: 113px;
+            left: 68px;
+        }
+
+        /*左眼珠*/
+        .head .eyeConLeft {
+            width: 28px;
+            height: 33px;
+            background-color: #511313;
+            position: absolute;
+            border-radius: 50% / 50%;
+            transform: rotate(-13deg);
+            top: 135px;
+            right: 92px;
+            z-index: 1;
+        }
+
+        /*右眼白*/
+        .head .eyeRight {
+            height: 78px;
+            width: 67px;
+            background-color: #ffffff;
+            border-radius: 50% / 50%;
+            transform: rotate(-20deg);
+            position: absolute;
+            top: 113px;
+            right: 68px;
+        }
+
+        /*右眼珠*/
+        .head .eyeConRight {
+            width: 28px;
+            height: 33px;
+            background-color: #511313;
+            position: absolute;
+            border-radius: 50% / 50%;
+            transform: rotate(13deg);
+            top: 135px;
+            left: 92px;
+            z-index: 1;
+        }
+
+        /* 嘴巴 */
+        .head .mouse {
+            width: 99px;
+            height: 76px;
+            background-color: #f7f9e5;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0);
+            border-radius: 50% / 50%;
+            top: 187px;
+        }
+
+        /* 鼻子容器 */
+        .head .nose {
+            width: 18px;
+            height: 14px;
+            position: absolute;
+            left: 50%;
+            margin-left: -9px;
+            bottom: 72px;
+        }
+
+        /* 鼻子上部分-半椭圆*/
+        .head .nose::before {
+            content: '';
+            display: block;
+            width: 18px;
+            height: 8px;
+            background-color: #511313;
+            border-radius: 50% / 100% 100% 0 0;
+        }
+
+        /* 鼻子下部分-三角形*/
+        .head .nose::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-width: 9px 9px 0;
+            border-style: solid;
+            border-color: #511313 transparent transparent;
+            position: relative;
+            top: 9px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 背景 -->
+    <div class="bac">
+        <!-- 头部 -->
+        <!-- 耳朵 -->
+        <div class="earLeft"></div>
+        <div class="earRight"></div>
+        <!-- 脸 -->
+        <div class="head">
+            <div class="eyeLeft"></div>
+            <div class="eyeConLeft"></div>
+            <div class="eyeRight"></div>
+            <div class="eyeConRight"></div>
+            <div class="mouse"></div>
+            <div class="nose"></div>
+        </div>
+        <!-- 身体 -->
+        <div class="body">
+            <!-- 胳膊 -->
+            <div class="armLeft"></div>
+            <div class="armRight"></div>
+            <!-- 肚子 -->
+            <div class="tummy"></div>
+            <!-- 腿 -->
+            <div class="legLeft"></div>
+            <div class="legRight"></div>
+        </div>
+        <!-- 阴影 -->
+        <div class="shaodw"></div>
+    </div>
+</body>

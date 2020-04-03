@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- 自己仿造的bind函数 -->
+    <script>
+        Function.prototype.myBind = function (context) {
+            if (typeof this !== 'function') {
+                throw new TypeError('error');
+            }
+            var _this = this;
+            console.log(_this);
+            var args = [...arguments].slice(1);
+            // 返回一个函数
+            return function F() {
+                // 因为返回了一个函数, 我们可以 new F(), 所以需要判断
+                if (this instanceof F) {
+                    return new _this(...args, ...arguments);
+                }
+                return _this.apply(context, args.concat(...arguments));
+            }
+        }
+
+        var a = {
+            age: 20
+        }
+
+        function momo() {
+            console.log(this.age);
+        }
+        momo.myBind(a, 1, 2, 3, 4, 5, 6, 8)();
+    </script>
+</body>
+
+</html>

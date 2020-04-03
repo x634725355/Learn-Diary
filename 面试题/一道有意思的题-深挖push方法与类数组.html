@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // push方法是指根据数组的length属性在最末尾添加参数并返回新的length属性值
+        // 当我没有添加length属性时
+        // push方法会创建一个length并在每次在添加完参数后把length加1
+        var obj = {
+            '2': 3,
+            '3': 4,
+            'splice': Array.prototype.splice,
+            'push': Array.prototype.push
+        }
+        obj.push(1) // 相当于obj[0] = 1; 并创建length: 0
+        obj.push(2) // 相当于obj[1] = 2; 并length: 0++
+        console.log(obj)
+        /*
+            Object(4) [empty × 2, 1, 2, splice: ƒ, push: ƒ]
+            2: 1
+            3: 2
+            length: 4
+            splice: ƒ splice()
+            push: ƒ push()
+            __proto__: Object
+        */
+        var obj = {
+            '2': 3,
+            '3': 4,
+            length: 2,
+            'splice': Array.prototype.splice,
+            'push': Array.prototype.push
+        }
+        obj.push(1) //相当于obj[2]=1 并length: 2++
+        obj.push(2) //相当于obj[3]=1 并length: 3++
+        console.log(obj)
+        /*
+            Object(4) [empty × 2, 1, 2, splice: ƒ, push: ƒ]
+            2: 1
+            3: 2
+            length: 4
+            splice: ƒ splice()
+            push: ƒ push()
+            __proto__: Object
+        */
+    </script>
+</body>
+
+</html>

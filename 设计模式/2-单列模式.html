@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单列模式</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 单列模式是指 一个程序里面只会出现唯一的一个对象 创建第一次以后 后面的每次都会返回旧对象
+    let SingleUser1 = (function () {
+        let instance = null;
+        return function User() {
+            if (instance) {
+                return instance;
+            }
+            instance = this;
+            return instance;
+        }
+    })();
+
+    let SingleUser2 = (function () {
+        let instance = null;
+
+        function User(name) {
+            this.name = name;
+        }
+        return function (name) {
+            if (instance) {
+                return instance;
+            }
+            instance = new User(name);
+            return instance;
+        }
+    })();
+
+    let singleUser3 = function (fn) {
+        let instance = null;
+
+        return function(args) {
+            if (instance) {
+                return instance;
+            }
+            instance = new fn(args);
+            return instance;
+        }
+    }
+</script>
+
+</html>

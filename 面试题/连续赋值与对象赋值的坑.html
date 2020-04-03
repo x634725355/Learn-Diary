@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var a = {
+            n: 1
+        };
+        var b = a;
+
+        // 这里的连续赋值先执行a.x因为.(19)比=(3)的优先级高
+        // 那么a.x会在a此时的地址上查询x属性没有找到就会创建一个x属性
+        // 接着执行=赋值而等号赋值是从右向左执行的所以执行 a={n:2}
+        // 此时a = {n:2}操作会用一个新的地址将a变量上的地址覆盖
+        // 之后再执行a.x = a({n:2}) 而a.x上a是之前的旧地址相当于b.x = a({n:2})
+        a.x = a = {
+            n: 2
+        };
+
+        console.log(a.x) // undefined
+        console.log(b.x) // {n: 2}
+    </script>
+</body>
+
+</html>

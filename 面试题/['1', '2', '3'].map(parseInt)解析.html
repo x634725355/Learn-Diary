@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // ['1', '2', '3'].map(parsenInt)相当于下面这样写
+        var ary = ['1', '2', '3'].map((item, index) => parseInt(item, index))
+
+        console.log('ary', ary);
+
+        console.log('parseInt("2",1)转换', parseInt('2', 1));
+    </script>
+
+</body>
+
+</html>

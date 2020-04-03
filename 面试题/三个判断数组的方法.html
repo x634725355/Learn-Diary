@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const o1 = {b:1};
+        const o = {a:1};
+        o.toString === Object.prototype.toString // true
+        o.toString = function changedToString() {return 'haha'}
+        o.toString() // "haha"
+        // call 方法的第一个参数会被当作 this，所以 arr.toString() 与 Object.prototype.toString.call(arr) 并没有改变 this，而是改变了调用的函数。
+        console.log('o',Object.prototype.toString.call(o)) //[object Object]
+        console.log('o1',Object.prototype.toString.call(o1)) //[object Object]
+         
+        
+
+        const ary = [1, 2, 3, 4];
+        // 1. Object.prototype.toString.call()
+        // 每一个继承 Object 的对象都有 toString 方法，如果 toString 方法没有重写的话，会返回 [Object type]，其中 type 为对象的类型。但当除了 Object 类型的对象外，其他类型直接使用 toString 方法时，会直接返回都是内容的字符串, 所以要用call改变toString的this指向
+        var one = ary.toString(ary) // "1,2,3,4"
+        console.log('ary的类型', Object.prototype.toString.call(ary));
+        // 2. instanceof 是通过内部机制寻找原型链中的类型prototype 找到返回true 没有找到返回false
+        console.log('ary instanceof Array', ary instanceof Array); // true
+        // 但是不能判断原始类型只能判断对象类型 而且所以对象类型instanceof Object都是true
+        console.log('ary instanceof Object', ary instanceof Object); // true
+
+        // 3. Array.isArray() 用来判断对象是否为数组
+        // isArray 可以判断iframe里面的数据 instanceof 不行
+        var iframe = document.createElement('iframe');
+        document.body.appendChild(iframe);
+        xArray = window.frames[window.frames.length - 1].Array;
+        var arr = new xArray(1, 2, 3); // [1,2,3]
+
+        // Correctly checking for Array
+        Array.isArray(arr); // true
+        Object.prototype.toString.call(arr); // true
+        // Considered harmful, because doesn't work though iframes
+        arr instanceof Array; // false
+    </script>
+</body>
+
+</html>

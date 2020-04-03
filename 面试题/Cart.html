@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>精简版购物车</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <ol class="prod-list">
+            <li><input type="checkbox" />商品1</li>
+            <li><input type="checkbox" />商品2</li>
+            <li><input type="checkbox" />商品3</li>
+            <li><input type="checkbox" />商品4</li>
+            <li><input type="checkbox" />商品5</li>
+        </ol>
+        <hr />
+        <div style="padding-left: 40px;">
+            <input class="all" type="checkbox" />全选
+        </div>
+    </div>
+</body>
+<script>
+    $(function () {
+        const $prodList = $('.prod-list input'); // jQuery 对象
+        $(".prod-list").on('change', 'input', function (e) {            
+            $('.all').prop("checked", $prodList.toArray().every(i => i.checked));
+        });
+        $('.all').on('click', function (e) {
+            $prodList.prop('checked', e.target.checked);
+        })
+    });
+</script>
+
+</html>

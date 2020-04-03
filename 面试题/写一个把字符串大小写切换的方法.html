@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+</body>
+<script type="text/javascript">
+    var str = 'asdadASddasd';
+
+    function ToggleStr(str) {
+        str = [...str];
+        for (var i = 0; i < str.length; i++) {
+            if (str[i].charCodeAt() >= 97) {
+                str[i] = str[i].toUpperCase();
+            } else {
+                str[i] = str[i].toLowerCase();
+            }
+        }
+        str = str.join('');
+        console.log(str);
+    }
+    ToggleStr(str);
+
+    // 别人的代码
+    const change = str => [...str].map(item => item.toLowerCase() === item ? item.toUpperCase() : item.toLowerCase())
+        .join('');
+
+    console.log(change('asda   AAadawADADSawdadA'));
+</script>
+
+</html>

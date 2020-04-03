@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 比较法
+    // var singleNumber = function (nums) {
+    //   var length = nums.length;
+    //   var index = nums.length - 1;
+    //   nums.sort()
+    //   for (let i = 0; i < length;i += 2) {
+    //     if (nums[i] != nums[i+1]) {
+    //       return nums[i]
+    //     }
+    //   }
+    //   return nums[index]
+    // };
+    // 异或法 交换律
+    const singleNumber=a=>a.reduce((x,y)=>x^y);
+    console.log(singleNumber([2, 2, 1,5,6,8,5,6,8]))
+    console.log(6^8);
+    
+  </script>
+</body>
+
+</html>

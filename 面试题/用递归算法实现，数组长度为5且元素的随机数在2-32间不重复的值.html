@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var ary = new Array(5);
+    var i = 0;
+
+    function Problem(nextNum, nowNum) {
+        if (i == 5) {
+            return;
+        }
+        nowNum = random();
+        while (nextNum == nowNum) {
+            nowNum = random();
+        }
+        ary[i] = nowNum;
+        nextNum = nowNum;
+        console.log(nowNum);
+
+        i++;
+        Problem(nextNum);
+    }
+
+    Problem();
+    console.log(ary);
+
+    function random() {
+        return Math.floor(Math.random() * 31 + 2);
+    }
+</script>
+
+</html>

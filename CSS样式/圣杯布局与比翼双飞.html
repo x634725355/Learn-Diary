@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 100%;
+        }
+
+        .box div {
+            float: left;
+        }
+
+        .box div:nth-child(1) {
+            width: 20%;
+            height: 50px;
+            background-color: aqua;
+        }
+
+        .box div:nth-child(3) {
+            width: 20%;
+            height: 50px;
+            background-color: cadetblue;
+        }
+
+        .box div:nth-child(2) {
+            width: 60%;
+            height: 50px;
+            padding: 0 20px;
+            background-color: chartreuse;
+        }
+    </style>
+    <style>
+
+
+    </style>
+</head>
+
+<body>
+    <!-- 圣杯布局与比翼双飞都是为了解决中间middle盒子让其内容不被左右两栏遮挡
+        简单来讲就是固比固排版  -->
+    <div class="box">
+        <div>left</div>
+        <div>min</div>
+        <div>right</div>
+    </div>
+
+
+    <div class="box2">
+        <div>left</div>
+        <div>
+            <div>min</div>
+        </div>
+        <div>right</div>
+    </div>
+
+
+</body>
+
+</html>
