@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组解构</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 变量交换
+    function one() {
+        let a = 1;
+        let b = 2;
+        [a, b] = [b, a];
+
+        console.log('a', a, 'b', b);
+    }
+
+    one();
+
+    // 赋默认值
+    function two() {
+        let name = [];
+        const [firstName = 'momo'] = name;
+
+        const [, twoName = 'kaka'] = name;
+
+        console.log('firstName', firstName, 'twoName', twoName);
+    }
+
+    two();
+
+    // 数据抛弃
+    function three() {
+        const numbers = [1, 2, 3, 4, 5];
+
+        // 抛弃了前三个 
+        const [, , , ...fooNumbers] = numbers;
+        // const [...momo,] = numbers; // 扩展运算符要放在最后(其余元素放最后) 不然会报错 Uncaught SyntaxError: Rest element must be last element
+
+        const obj = {
+            name: 'momo',
+            age: 17,
+            color: 'red'
+        };
+
+        const {
+            name,
+            ...fooObj
+        } = obj;
+
+        console.log('fooNumbers', fooNumbers, 'fooObj', fooObj);
+    }
+
+    three();
+
+    // 解构动态属性
+    function four(obj, namePro) {
+        // 通过[namePro]写法 搭配 : 重命名
+        const {
+            [namePro]: name = 'unName'
+        } = obj;
+
+        console.log(`my name ${name}`);
+    }
+
+    four({
+        momo: 'kaka'
+    }, 'momo');
+</script>
+
+</html>
