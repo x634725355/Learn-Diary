@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue</title>
+</head>
+
+<body>
+
+</body>
+
+<script>
+    // value
+    // let obj = {
+    //     name: 'momo'
+    // };
+
+    // Object.defineProperty(obj, 'age', {
+    //     value: 28
+    // });
+
+    // writable
+    // let obj = {
+    //     name: 'momo'
+    // };
+
+    // Object.defineProperty(obj, 'age', {
+    //     value: 18,
+    //     writable: true // 该属性false代表不能被修改 true 代表可以被修改
+    // });
+
+    // enumerable
+    // let obj = {
+    //     name: 'momo'
+    // };
+
+    // Object.defineProperty(obj, 'age', {
+    //     value: 18,
+    //     writable: true, // 该属性false代表不能被修改 true 代表可以被修改
+    //     enumerable: true // 能否被删除 true 代表可以被删除
+    // });
+
+    let obj = {
+        name: 'momo'
+    }
+
+    let a = 111;
+
+    Object.defineProperty(obj, 'name', {
+        set(value) {
+            a = value + '这里是set函数';
+        },
+        get() {
+            return a + '这里是get函数';
+        }
+    })
+</script>
+
+</html>

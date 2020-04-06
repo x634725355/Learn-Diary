@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 2000px;
+        }
+
+        .box {
+            margin-top: 1000px;
+            background-color: pink;
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <img src='./层叠等级.jpg' alt="">
+    </div>
+</body>
+<script>
+    const option = {
+        root: null, // 默认是根元素
+        threshold: [0.01], // 0.01代表目标元素的1%出现在视图中时触发回调
+        rootMargin: '30px 100px 20px' // 相当于扩大视图的范围
+    }
+
+    const io = new IntersectionObserver((entries) => {
+        console.log(entries);
+        if (entries[0].isIntersecting) {
+            entries[0].target.src = './运算符等级.png';
+            io.unobserve(entries[0].target);
+        }
+    }, option);
+    io.observe(document.querySelector('img'));
+</script>
+
+</html>
