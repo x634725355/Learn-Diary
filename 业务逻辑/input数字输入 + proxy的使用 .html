@@ -11,6 +11,11 @@
   <input type="text" id="input1">
 </body>
 <script>
+  // 使用 Proxy 第一个参数是 要代理的对象 第二个参数 handler 对象是一个容纳一批特定属性的占位符对象。它包含有 Proxy 的各个捕获器（trap）。
+  // 注意 Proxy 不能代理非对象的参数
+  // set方法:  (targe, prop, value, receiver) target 是 指目标对象 也就是 { inputValue: "" } 我们代理的这个对象 prop 是我们要设置的属性名 value 是我们要设置的值  
+  // receiver 我就引入官方的解释了 最初被调用的对象。通常是 proxy 本身，但 handler 的 set 方法也有可能在原型链上，或以其他方式被间接地调用（因此不一定是 proxy 本身）。
+  // get方法:  (targe, property, receiver) target 是 指目标对象 也就是 { inputValue: "" } 我们代理的这个对象  property 要获取的属性名
   const inputProxy = new Proxy({
     inputValue: ""
   }, {
@@ -20,10 +25,10 @@
       target[prop] = value;
       return true;
     },
-    get: (target, prop) => {
-      console.log(target, prop);
+    get: (target, property) => {
+      console.log(target, property);
 
-      return target[prop].replace(/[^0-9.]/g, "")
+      return target[property].replace(/[^0-9.]/g, "")
         .replace(".", "#*")
         .replace(/\./g, "")
         .replace("#*", ".")
