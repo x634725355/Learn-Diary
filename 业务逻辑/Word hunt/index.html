@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #app {
+      width: 60vw;
+      margin: 100px auto 0;
+    }
+
+    .missionBoard {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .game-start {
+      text-align: center;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    .barrel {
+      height: 60px;
+      width: 100px;
+      background: #efefef;
+      border-left: 2px solid #ddd;
+      border-right: 2px solid #ddd;
+      background: linear-gradient(to bottom, #efefef 100%, #ccc 0%);
+    }
+
+    .barrel:before {
+      display: block;
+      content: '';
+      height: 30px;
+      width: 100%;
+      border: 2px solid #ddd;
+      border-radius: 50%;
+      transform: rotateX(40deg);
+      background-color: #efefef;
+      text-align: center;
+      line-height: 1.5em;
+      position: relative;
+      top: -15px;
+      left: -2px;
+    }
+
+    .barrel:after {
+      display: block;
+      content: "";
+      height: 30px;
+      width: 100%;
+      border: 2px solid #ddd;
+      border-top: 0px;
+      transform: rotateX(40deg);
+      background: linear-gradient(to bottom, rgba(239, 239, 239, 0) 40%, #efefef 50%);
+      border-radius: 50%;
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+      border-bottom-left-radius: 50%;
+      border-bottom-right-radius: 50%;
+      position: relative;
+      top: 11px;
+      left: -2px;
+    }
+
+    .game-main {
+      position: relative;
+      width: 100%;
+      height: 400px;
+    }
+
+    .user-select-none {
+      -webkit-touch-callout: none;
+      -moz-user-select: none;
+      /*火狐*/
+      -webkit-user-select: none;
+      /*webkit浏览器*/
+      -ms-user-select: none;
+      /*IE10*/
+      -khtml-user-select: none;
+      /*早期浏览器*/
+      user-select: none;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="app">
+    <div class="">
+      <div class="missionBoard">
+        <div class="barrel"></div>
+        <div>{{formatCountdown}}</div>
+      </div>
+
+      <div v-if="gameOver" @click="gameStart" class="game-start">Game Start</div>
+      <!-- 主体页面数据 -->
+      <div class="game-main"></div>
+
+    </div>
+  </div>
+
+  <p style="font-size: 20px;">asdqwdqwdqwdqwdqdw</p>
+</body>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+      wordList: [],
+      countdown: 0,
+      gameOver: true,
+      startTime: 0,
+      second: 0,
+      countIndex: 1,
+      colorData: ["ff9a76", "679b9b", "fa7d09", "14b1ab", "184d47", "96bb7c", "eebb4d", "726a95", "b1b493", "d92027"],
+      directionOptions: ["0deg", "90deg", "180deg", "270deg"]
+    },
+    created() {
+      this.initData();
+    },
+    methods: {
+      initData() {
+        // TODO: 赋值会有变动
+        this.wordList = ['art', 'car', 'bus', 'earth', 'camera', 'phone', 'sun', 'light', 'number', '精力旺盛的和尚'];
+
+        // 5 分钟
+        this.countdown = 5 * 60;
+
+        gameOver = true;
+      },
+      keepTwo(number) {
+        return Math.round(number * 100) / 100;
+      },
+      // 倒计时 
+      hourglass(interval) {
+        setTimeout(() => {
+          const endTime = +new Date().getTime();
+
+          const deviation = endTime - (this.startTime + this.countIndex * 1000);
+
+          this.countIndex++;
+
+          this.second++;
+
+          if (this.second === 60) this.second = 0;
+
+          this.countdown--;
+
+          if (!this.countdown) {
+            this.gameOver = true;
+            return;
+          }
+
+          this.hourglass(1000 - deviation);
+        }, interval);
+      },
+      // 游戏开始
+      gameStart() {
+        this.startTime = +new Date();
+        this.hourglass(1000);
+        this.gameOver = false;
+        this.wordConstruct();
+      },
+      wordConstruct() {
+        const gameMain = document.querySelector('.game-main');
+
+
+        this.wordList.forEach(p => {
+          const num = Math.random() * 35;
+          const fontSize = num > 14 ? Math.ceil(num) : Math.ceil(num + 14);
+          const color = this.colorData[Math.floor(Math.random() * this.colorData.length)];
+          const direction = this.directionOptions[Math.floor(Math.random() * this.directionOptions.length)];
+          const top = Math.floor(Math.random() * gameMain.offsetHeight);
+          const left = Math.floor(Math.random() * gameMain.offsetWidth);
+          const word = document.createElement("div");
+          let nowTop = 0;
+          let nowLeft = 0;
+
+          word.style.position = "absolute";
+          word.style.cursor = "pointer";
+          word.style.top = `${top}px`;
+          word.style.left = `${left}px`;
+          word.style.fontSize = `${fontSize}px`;
+          word.style.transform = `rotate(${direction})`;
+          word.style.color = `#${color}`;
+          word.className = 'user-select-none';
+          word.innerText = p;
+          const onClickHandle = (e) => {
+            console.log(e);
+            word.addEventListener("mousemove", onMouseMove);
+          };
+
+          const onMouseMove = (e) => {
+            console.log("鼠标移动", e);
+          };
+
+          word.addEventListener("mousedown", onClickHandle);
+          word.addEventListener("mouseout", () => {
+            word.removeEventListener("mousemove", onMouseMove);
+            console.log("解除绑定");
+          });
+          word.addEventListener("mouseup", () => {
+            word.removeEventListener("mousemove", onMouseMove);
+            console.log("解除绑定");
+          });
+
+          gameMain.appendChild(word);
+        });
+
+      }
+    },
+    computed: {
+      formatCountdown() {
+        return `倒计时: ${Math.floor(this.countdown / 60)} : ${60 - this.second === 60 ? '00' : 60 - this.second}`;
+      }
+    }
+  })
+</script>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>倒计时</title>
+  <style>
+    .box {
+      margin: 0 auto;
+      width: 100px;
+      height: 100px;
+      background-color: coral;
+      color: aliceblue;
+      transform: rotate(90deg);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box"></div>
+</body>
+<script>
+  let countdown = 5 * 60;
+  const startTime = +new Date();
+  const timeout = 1000;
+  let countIndex = 1;
+  let second = 0;
+
+
+  time(timeout);
+
+  function time(interval) {
+    setTimeout(() => {
+      const endTime = +new Date().getTime();
+
+      const deviation = endTime - (startTime + countIndex * timeout);
+
+      console.log(`${countIndex}: 偏差${deviation}ms`);
+
+      countIndex++;
+
+      second++;
+
+      if (second === 60) second = 0;
+
+      countdown--;
+
+      document.querySelector('.box').innerHTML = `倒计时: ${Math.floor(countdown / 60)} : ${60 - second === 60 ? '00' : 60 - second}`;
+
+      if (!countdown) {
+        return;
+      }
+
+      time(timeout - deviation);
+    }, interval);
+  }
+</script>
+
+</html>
