@@ -109,8 +109,6 @@
 
     </div>
   </div>
-
-  <p style="font-size: 20px;">asdqwdqwdqwdqwdqdw</p>
 </body>
 <script>
   const app = new Vue({
@@ -122,7 +120,9 @@
       startTime: 0,
       second: 0,
       countIndex: 1,
-      colorData: ["ff9a76", "679b9b", "fa7d09", "14b1ab", "184d47", "96bb7c", "eebb4d", "726a95", "b1b493", "d92027"],
+      colorData: ["ff9a76", "679b9b", "fa7d09", "14b1ab", "184d47", "96bb7c", "eebb4d", "726a95", "b1b493",
+        "d92027"
+      ],
       directionOptions: ["0deg", "90deg", "180deg", "270deg"]
     },
     created() {
@@ -167,6 +167,7 @@
       // 游戏开始
       gameStart() {
         this.startTime = +new Date();
+        this.countdown = 5 * 60;
         this.hourglass(1000);
         this.gameOver = false;
         this.wordConstruct();
@@ -174,7 +175,7 @@
       wordConstruct() {
         const gameMain = document.querySelector('.game-main');
 
-
+        // 渲染单词
         this.wordList.forEach(p => {
           const num = Math.random() * 35;
           const fontSize = num > 14 ? Math.ceil(num) : Math.ceil(num + 14);
@@ -195,13 +196,19 @@
           word.style.color = `#${color}`;
           word.className = 'user-select-none';
           word.innerText = p;
+
+          let initialX = 0;
+          let initialY = 0;
           const onClickHandle = (e) => {
             console.log(e);
+            initialX = e.clientX;
+            initialY = e.clientY - 200;
             word.addEventListener("mousemove", onMouseMove);
           };
 
           const onMouseMove = (e) => {
             console.log("鼠标移动", e);
+
           };
 
           word.addEventListener("mousedown", onClickHandle);
