@@ -123,7 +123,9 @@
       colorData: ["ff9a76", "679b9b", "fa7d09", "14b1ab", "184d47", "96bb7c", "eebb4d", "726a95", "b1b493",
         "d92027"
       ],
-      directionOptions: ["0deg", "90deg", "180deg", "270deg"]
+      directionOptions: ["0deg", "90deg", "180deg", "270deg"],
+      selectWordList: [],
+      answer: []
     },
     created() {
       this.initData();
@@ -158,6 +160,7 @@
 
           if (!this.countdown) {
             this.gameOver = true;
+            document.querySelector('.game-main').innerHTML = "";
             return;
           }
 
@@ -174,9 +177,15 @@
       },
       wordConstruct() {
         const gameMain = document.querySelector('.game-main');
+        const barrel = document.querySelector('.barrel');
+        // TODO: 有待研究
+        const answerArea = {
+          top: barrel.offsetLeft,
+
+        }
 
         // 渲染单词
-        this.wordList.forEach(p => {
+        this.wordList.forEach((p, index) => {
           const num = Math.random() * 35;
           const fontSize = num > 14 ? Math.ceil(num) : Math.ceil(num + 14);
           const color = this.colorData[Math.floor(Math.random() * this.colorData.length)];
@@ -194,32 +203,38 @@
           word.style.fontSize = `${fontSize}px`;
           word.style.transform = `rotate(${direction})`;
           word.style.color = `#${color}`;
-          word.className = 'user-select-none';
+          word.className = 'user-select-none momo' + index;
           word.innerText = p;
 
-          let initialX = 0;
-          let initialY = 0;
           const onClickHandle = (e) => {
-            console.log(e);
-            initialX = e.clientX;
-            initialY = e.clientY - 200;
-            word.addEventListener("mousemove", onMouseMove);
+            let initialX = e.pageX - word.offsetLeft;
+            let initialY = e.pageY - word.offsetTop;
+
+            function onMouseMove(e) {
+              word.style.left = (e.pageX - initialX) + "px";
+              word.style.top = (e.pageY - initialY) + "px";
+
+
+
+            };
+
+            // 绑定移动事件
+            document.addEventListener("mousemove", onMouseMove);
+
+            // 鼠标抬起 
+            document.addEventListener("mouseup", () => {
+              document.removeEventListener("mousemove", onMouseMove);
+            });
+
+            // 鼠标移出
+            document.addEventListener("mouseout", () => {
+              document.removeEventListener("mousemove", onMouseMove);
+            });
           };
 
-          const onMouseMove = (e) => {
-            console.log("鼠标移动", e);
 
-          };
-
+          // 鼠标点击
           word.addEventListener("mousedown", onClickHandle);
-          word.addEventListener("mouseout", () => {
-            word.removeEventListener("mousemove", onMouseMove);
-            console.log("解除绑定");
-          });
-          word.addEventListener("mouseup", () => {
-            word.removeEventListener("mousemove", onMouseMove);
-            console.log("解除绑定");
-          });
 
           gameMain.appendChild(word);
         });
