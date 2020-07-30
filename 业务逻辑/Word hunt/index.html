@@ -180,9 +180,15 @@
         const barrel = document.querySelector('.barrel');
         // TODO: 有待研究
         const answerArea = {
-          top: barrel.offsetLeft,
-
-        }
+          heigth: {
+            start: -40,
+            end: 20
+          },
+          width: {
+            start: -40,
+            end: 70
+          }
+        };
 
         // 渲染单词
         this.wordList.forEach((p, index) => {
@@ -210,11 +216,21 @@
             let initialX = e.pageX - word.offsetLeft;
             let initialY = e.pageY - word.offsetTop;
 
-            function onMouseMove(e) {
-              word.style.left = (e.pageX - initialX) + "px";
-              word.style.top = (e.pageY - initialY) + "px";
+            const onMouseMove = (e) => {
+              let left = e.pageX - initialX;
+              let top = e.pageY - initialY;
 
+              word.style.left = left + "px";
+              word.style.top = top + "px";
 
+              console.log(top + "==========" + left);
+
+              if (answerArea.heigth.start <= top && answerArea.heigth.end >= top && answerArea.width
+                .start <=
+                left && answerArea.width.end >= left) {
+                this.selectWordList.push(p);
+                word.remove();
+              }
 
             };
 
