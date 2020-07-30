@@ -91,6 +91,12 @@
       /*早期浏览器*/
       user-select: none;
     }
+
+    .selectWordList {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
   </style>
 
 </head>
@@ -98,6 +104,9 @@
 <body>
   <div id="app">
     <div class="">
+      <div class="selectWordList">
+        {{selectWordList}}
+      </div>
       <div class="missionBoard">
         <div class="barrel"></div>
         <div>{{formatCountdown}}</div>
@@ -199,6 +208,7 @@
           const top = Math.floor(Math.random() * gameMain.offsetHeight);
           const left = Math.floor(Math.random() * gameMain.offsetWidth);
           const word = document.createElement("div");
+          const text = p;
           let nowTop = 0;
           let nowLeft = 0;
 
@@ -210,7 +220,7 @@
           word.style.transform = `rotate(${direction})`;
           word.style.color = `#${color}`;
           word.className = 'user-select-none momo' + index;
-          word.innerText = p;
+          word.innerText = text;
 
           const onClickHandle = (e) => {
             let initialX = e.pageX - word.offsetLeft;
@@ -222,33 +232,37 @@
 
               word.style.left = left + "px";
               word.style.top = top + "px";
+            };
 
-              console.log(top + "==========" + left);
-
+            const onMouseUp = (e) => {
+              let left = e.pageX - initialX;
+              let top = e.pageY - initialY;
               if (answerArea.heigth.start <= top && answerArea.heigth.end >= top && answerArea.width
                 .start <=
                 left && answerArea.width.end >= left) {
-                this.selectWordList.push(p);
+                this.selectWordList.push(text);
+                console.log(this.selectWordList);
                 word.remove();
               }
-
+              word.removeEventListener("mousemove", onMouseMove);
             };
 
+            // 避免抬起事件多次绑定
+            word.removeEventListener("mouseup", onMouseUp);
+
             // 绑定移动事件
-            document.addEventListener("mousemove", onMouseMove);
+            word.addEventListener("mousemove", onMouseMove);
 
             // 鼠标抬起 
-            document.addEventListener("mouseup", () => {
-              document.removeEventListener("mousemove", onMouseMove);
-            });
+            word.addEventListener("mouseup", onMouseUp);
 
             // 鼠标移出
-            document.addEventListener("mouseout", () => {
-              document.removeEventListener("mousemove", onMouseMove);
+            word.addEventListener("mouseout", () => {
+              word.removeEventListener("mousemove", onMouseMove);
             });
           };
 
-
+          word.removeEventListener("mousedown", onClickHandle);
           // 鼠标点击
           word.addEventListener("mousedown", onClickHandle);
 
