@@ -134,7 +134,11 @@
       ],
       directionOptions: ["0deg", "90deg", "180deg", "270deg"],
       selectWordList: [],
-      answer: []
+      answer: [],
+      onMouseUpArr: [],
+      onMouseMoveArr: [],
+      initialX: 0,
+      initialY: 0
     },
     created() {
       this.initData();
@@ -222,47 +226,48 @@
           word.className = 'user-select-none momo' + index;
           word.innerText = text;
 
+          const onMouseUp = (e) => {
+            let left = e.pageX - this.initialX;
+            let top = e.pageY - this.initialY;
+            if (answerArea.heigth.start <= top && answerArea.heigth.end >= top && answerArea.width
+              .start <= left && answerArea.width.end >= left) {
+              this.selectWordList.push(text);
+              console.log(this.selectWordList);
+              word.remove();
+            }
+            word.removeEventListener("mousemove", this.onMouseMoveArr[index]);
+          };
+
+          const onMouseMove = (e) => {
+            let left = e.pageX - this.initialX;
+            let top = e.pageY - this.initialY;
+
+            word.style.left = left + "px";
+            word.style.top = top + "px";
+          }
+
+          this.onMouseMoveArr.push(onMouseMove);
+          this.onMouseUpArr.push(onMouseUp);
+
           const onClickHandle = (e) => {
-            let initialX = e.pageX - word.offsetLeft;
-            let initialY = e.pageY - word.offsetTop;
-
-            const onMouseMove = (e) => {
-              let left = e.pageX - initialX;
-              let top = e.pageY - initialY;
-
-              word.style.left = left + "px";
-              word.style.top = top + "px";
-            };
-
-            const onMouseUp = (e) => {
-              let left = e.pageX - initialX;
-              let top = e.pageY - initialY;
-              if (answerArea.heigth.start <= top && answerArea.heigth.end >= top && answerArea.width
-                .start <=
-                left && answerArea.width.end >= left) {
-                this.selectWordList.push(text);
-                console.log(this.selectWordList);
-                word.remove();
-              }
-              word.removeEventListener("mousemove", onMouseMove);
-            };
+            this.initialX = e.pageX - word.offsetLeft;
+            this.initialY = e.pageY - word.offsetTop;
 
             // 避免抬起事件多次绑定
-            word.removeEventListener("mouseup", onMouseUp);
+            word.removeEventListener("mouseup", this.onMouseUpArr[index]);
 
             // 绑定移动事件
-            word.addEventListener("mousemove", onMouseMove);
+            word.addEventListener("mousemove", this.onMouseMoveArr[index]);
 
-            // 鼠标抬起 
-            word.addEventListener("mouseup", onMouseUp);
+            // 鼠标抬起
+            word.addEventListener("mouseup", this.onMouseUpArr[index]);
 
             // 鼠标移出
             word.addEventListener("mouseout", () => {
-              word.removeEventListener("mousemove", onMouseMove);
+              word.removeEventListener("mousemove", this.onMouseMoveArr[index]);
             });
           };
 
-          word.removeEventListener("mousedown", onClickHandle);
           // 鼠标点击
           word.addEventListener("mousedown", onClickHandle);
 
