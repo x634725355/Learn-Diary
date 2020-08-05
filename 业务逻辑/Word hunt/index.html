@@ -112,7 +112,7 @@
         <div>{{formatCountdown}}</div>
       </div>
 
-      <div v-if="gameOver" @click="gameStart" class="game-start">Game Start</div>
+      <div v-if="gameOver" @click="gameStart" class="game-start">Test</div>
       <!-- 主体页面数据 -->
       <div class="game-main"></div>
 
@@ -138,7 +138,9 @@
       onMouseUpArr: [],
       onMouseMoveArr: [],
       initialX: 0,
-      initialY: 0
+      initialY: 0,
+      isMouseDown: false,
+      target: null
     },
     created() {
       this.initData();
@@ -146,7 +148,7 @@
     methods: {
       initData() {
         // TODO: 赋值会有变动
-        this.wordList = ['art', 'car', 'bus', 'earth', 'camera', 'phone', 'sun', 'light', 'number', '精力旺盛的和尚'];
+        this.wordList = ['art', 'car', 'bus', 'earth', 'camera', 'phone', 'sun', 'light', 'number', 'xsfew'];
 
         // 5 分钟
         this.countdown = 5 * 60;
@@ -156,7 +158,14 @@
       keepTwo(number) {
         return Math.round(number * 100) / 100;
       },
-      // 倒计时 
+      startHourglass() {
+        setTimeout(--this.countdown ? this.startHourglass : this.stopGame, 1000);
+      },
+      stopGame() {
+        this.gameOver = true;
+        document.querySelector('.game-main').innerHTML = '';
+      },
+      // 倒计时，此处仅计时用，不执行游戏循环，减去的时间仅仅为执行setTimeout回调的几毫秒，没必要
       hourglass(interval) {
         setTimeout(() => {
           const endTime = +new Date().getTime();
@@ -182,11 +191,14 @@
       },
       // 游戏开始
       gameStart() {
-        this.startTime = +new Date();
-        this.countdown = 5 * 60;
-        this.hourglass(1000);
-        this.gameOver = false;
+        // 已弃用
+        // this.startTime = +new Date();
         this.wordConstruct();
+        // 初始化完毕再更改游戏状态
+        this.gameOver = false;
+        this.countdown = 5 * 60;
+        // this.hourglass(1000);
+        this.startHourglass();
       },
       wordConstruct() {
         const gameMain = document.querySelector('.game-main');
@@ -198,23 +210,24 @@
             end: 20
           },
           width: {
-            start: -40,
-            end: 70
+            start: -50,
+            end: 30
           }
         };
 
         // 渲染单词
-        this.wordList.forEach((p, index) => {
-          const num = Math.random() * 35;
-          const fontSize = num > 14 ? Math.ceil(num) : Math.ceil(num + 14);
+        this.wordList.forEach((text, index) => {
+          // const num = Math.random() * 35
+          // const fontSize = num > 14 ? Math.ceil(num) : Math.ceil(num + 14)
+          const fontSize = parseInt(Math.random() * 21 + 14);
           const color = this.colorData[Math.floor(Math.random() * this.colorData.length)];
           const direction = this.directionOptions[Math.floor(Math.random() * this.directionOptions.length)];
           const top = Math.floor(Math.random() * gameMain.offsetHeight);
           const left = Math.floor(Math.random() * gameMain.offsetWidth);
+          // 有可能超出边界，需要结合字体大小和方向进行计算
           const word = document.createElement("div");
-          const text = p;
-          let nowTop = 0;
-          let nowLeft = 0;
+          // let nowTop = 0;
+          // let nowLeft = 0;
 
           word.style.position = "absolute";
           word.style.cursor = "pointer";
@@ -226,46 +239,28 @@
           word.className = 'user-select-none momo' + index;
           word.innerText = text;
 
-          const onMouseUp = (e) => {
-            let left = e.pageX - this.initialX;
-            let top = e.pageY - this.initialY;
-            if (answerArea.heigth.start <= top && answerArea.heigth.end >= top && answerArea.width
-              .start <= left && answerArea.width.end >= left) {
-              this.selectWordList.push(text);
-              console.log(this.selectWordList);
-              word.remove();
-            }
-            word.removeEventListener("mousemove", this.onMouseMoveArr[index]);
-          };
-
-          const onMouseMove = (e) => {
-            let left = e.pageX - this.initialX;
-            let top = e.pageY - this.initialY;
-
-            word.style.left = left + "px";
-            word.style.top = top + "px";
-          }
-
-          this.onMouseMoveArr.push(onMouseMove);
-          this.onMouseUpArr.push(onMouseUp);
+          // this.onMouseMoveArr.push(onMouseMove);
+          // this.onMouseUpArr.push(onMouseUp);
 
           const onClickHandle = (e) => {
+            this.isMouseDown = true;
+            this.target = word;
             this.initialX = e.pageX - word.offsetLeft;
             this.initialY = e.pageY - word.offsetTop;
 
             // 避免抬起事件多次绑定
-            word.removeEventListener("mouseup", this.onMouseUpArr[index]);
+            // word.removeEventListener("mouseup", this.onMouseUpArr[index]);
 
             // 绑定移动事件
-            word.addEventListener("mousemove", this.onMouseMoveArr[index]);
+            // word.addEventListener("mousemove", this.onMouseMoveArr[index]);
 
             // 鼠标抬起
-            word.addEventListener("mouseup", this.onMouseUpArr[index]);
+            // word.addEventListener("mouseup", this.onMouseUpArr[index]);
 
             // 鼠标移出
-            word.addEventListener("mouseout", () => {
-              word.removeEventListener("mousemove", this.onMouseMoveArr[index]);
-            });
+            // word.addEventListener("mouseout", () => {
+            //   word.removeEventListener("mousemove", this.onMouseMoveArr[index]);
+            // });
           };
 
           // 鼠标点击
@@ -274,11 +269,45 @@
           gameMain.appendChild(word);
         });
 
+        const onMouseUp = (e) => {
+          this.isMouseDown = false;
+          if (!this.target) return;
+          let left = e.pageX - this.initialX;
+          let top = e.pageY - this.initialY;
+          console.log(e.pageX, this.initialX)
+          console.log(left, top)
+          if (answerArea.heigth.start <= top && answerArea.heigth.end >= top && answerArea.width
+            .start <= left && answerArea.width.end >= left) {
+            this.selectWordList.push(this.target.innerText);
+            console.log(this.selectWordList);
+            this.target.remove();
+          }
+          this.target = null;
+          // word.removeEventListener("mousemove", this.onMouseMoveArr[index]);
+        };
+
+        const onMouseMove = (e) => {
+          if (!this.isMouseDown || !this.target) return;
+          let left = e.pageX - this.initialX;
+          let top = e.pageY - this.initialY;
+
+          this.target.style.left = left + "px";
+          this.target.style.top = top + "px";
+        }
+
+        // 绑定移动事件
+        // word.addEventListener("mousemove", this.onMouseMoveArr[index]);
+        window.addEventListener('mousemove', onMouseMove);
+
+        // 鼠标抬起
+        // word.addEventListener("mouseup", this.onMouseUpArr[index]);
+        window.addEventListener('mouseup', onMouseUp);
       }
     },
     computed: {
       formatCountdown() {
-        return `倒计时: ${Math.floor(this.countdown / 60)} : ${60 - this.second === 60 ? '00' : 60 - this.second}`;
+        // return `倒计时: ${Math.floor(this.countdown / 60)} : ${60 - this.second === 60 ? '00' : 60 - this.second}`;
+        return `倒计时: ${('0' + parseInt(this.countdown / 60)).slice(-2)} : ${('0' + this.countdown % 60).slice(-2)}`;
       }
     }
   })
