@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="momo" width="500" height="500" style="border:1px solid #d3d3d3;"></canvas>
+    <button class="add">++++</button>
+    <button class="cut">-----</button>
+</body>
+<script>
+    let momo = document.querySelector("#momo");
+
+    let ctx = momo.getContext('2d');
+
+    let controlOne = { x: 20, y: 20 };
+    let controlTwo = { x: 120, y: 120 };
+    let isOneDown = false;
+
+    let wOne = 100;
+    let hOne = 100;
+
+    let wTwe = 100;
+    let hTwe = 100;
+
+    let initialX = 0;
+    let initialY = 0;
+
+    ctx.beginPath();
+    ctx.moveTo(controlOne.x, controlOne.y);
+    ctx.quadraticCurveTo(controlOne.x, controlOne.y, controlOne.x + w, controlOne.y);
+    ctx.lineTo(controlOne.x, controlOne.y);
+    ctx.quadraticCurveTo(controlOne.x, controlOne.y, controlOne.x, controlOne.y + h);
+    ctx.moveTo(controlTwo.x, controlTwo.y);
+    ctx.quadraticCurveTo(controlTwo.x, controlTwo.y, controlTwo.x, controlTwo.y - h);
+    ctx.lineTo(controlTwo.x, controlTwo.y);
+    ctx.quadraticCurveTo(controlTwo.x, controlTwo.y, controlTwo.x - w, controlTwo.y);
+
+    ctx.stroke();
+
+    momo.onmousedown = (e) => {
+        // if (e.clientX >= )
+    };
+
+    momo.onmousemove = (e) => {
+        // console.log(e.clientX, e.clientY);
+    };
+
+
+    document.querySelector(".add").onclick = (e) => {
+        w += 20;
+        h += 20;
+        controlOne.x -= 20;
+
+
+
+        ctx.clearRect(0, 0, 500, 500);
+        ctx.beginPath();
+        ctx.moveTo(controlOne.x, controlOne.y);
+        ctx.quadraticCurveTo(controlOne.x, controlOne.y, controlOne.x + w, controlOne.y);
+        ctx.lineTo(controlOne.x, controlOne.y);
+        ctx.quadraticCurveTo(controlOne.x, controlOne.y, controlOne.x, controlOne.y + h);
+        ctx.moveTo(controlTwo.x, controlTwo.y);
+        ctx.quadraticCurveTo(controlTwo.x, controlTwo.y, controlTwo.x, controlTwo.y - h);
+        ctx.lineTo(controlTwo.x, controlTwo.y);
+        ctx.quadraticCurveTo(controlTwo.x, controlTwo.y, controlTwo.x - w, controlTwo.y);
+        ctx.stroke();
+
+    }
+    document.querySelector(".cut").onclick = (e) => {
+        w -= 20;
+        h -= 20;
+
+        ctx.clearRect(0, 0, 500, 500);
+        ctx.beginPath();
+        ctx.moveTo(controlOne.x, controlOne.y);
+        ctx.quadraticCurveTo(controlOne.x, controlOne.y, controlOne.x + w, controlOne.y);
+        ctx.lineTo(controlOne.x, controlOne.y);
+        ctx.quadraticCurveTo(controlOne.x, controlOne.y, controlOne.x, controlOne.y + h);
+        ctx.moveTo(controlTwo.x, controlTwo.y);
+        ctx.quadraticCurveTo(controlTwo.x, controlTwo.y, controlTwo.x, controlTwo.y - h);
+        ctx.lineTo(controlTwo.x, controlTwo.y);
+        ctx.quadraticCurveTo(controlTwo.x, controlTwo.y, controlTwo.x - w, controlTwo.y);
+        ctx.stroke();
+    }
+
+</script>
+
+</html>
