@@ -1,6 +1,6 @@
 const CryptoJS = require("crypto-js");
 
-let momo = CryptoJS.AES.encrypt("哈哈哈哈", "123456789").toString();
+let momo = CryptoJS.AES.encrypt(JSON.stringify({ momo: "哈哈哈哈哈哈哈哈哈哈哈哈" }), "123456789").toString();
 
 console.log("momo", momo);
 
