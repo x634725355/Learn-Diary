@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <canvas id="momo" width="500" height="500" style="background-color: antiquewhite;"></canvas>
+</body>
+<script>
+  let momo = document.querySelector("#momo");
+  let ctx = momo.getContext("2d");
+  // 矩阵的绘图坐标
+  let rect = [100, 100, 200, 200];
+  // 四个角的坐标
+  let corners = [];
+  // 角边长
+  let cornersWidth = 16;
+
+  function render() {
+    calculationCorners();
+    drawRect();
+    drawCorner();
+  }
+
+  function calculationCorners() {
+    const hfWidth = cornersWidth / 2;
+    corners = [
+      [
+        rect[0] - hfWidth,
+        rect[1] - hfWidth,
+        cornersWidth,
+        cornersWidth
+      ],
+      [
+        rect[0] - hfWidth + rect[2],
+        rect[1] - hfWidth,
+        cornersWidth,
+        cornersWidth
+      ],
+      [
+        rect[0] - hfWidth + rect[2],
+        rect[1] - hfWidth + rect[2],
+        cornersWidth,
+        cornersWidth
+      ],
+      [
+        rect[0] - hfWidth,
+        rect[1] - hfWidth + rect[2],
+        cornersWidth,
+        cornersWidth
+      ],
+    ];
+  }
+
+  function drawRect() {
+    ctx.fillStyle = "rgba(0,0,0, .1)";
+    ctx.fillRect(...rect);
+  }
+
+  function drawCorner() {
+    corners.forEach(angle => {
+      ctx.fillStyle = "rgba(0,0,0, .8)";
+      ctx.fillRect(...angle);
+    });
+  }
+
+
+
+  // function darw() {
+  //   ctx.fillStyle = "#ddd";
+  //   ctx.fillRect()
+  // }
+
+  render();
+</script>
+
+</html>
