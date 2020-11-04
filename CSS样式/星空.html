@@ -6,9 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
+
+    body {
+      min-width: 100px;
+      min-height: 100%;
+      font-family: Roboto,-apple-system,Helvetica Neue,Helvetica,Arial,sans-serif;
+      -ms-text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-smoothing: antialiased;
+      line-height: 1.5;
+      font-size: 14px;
+      margin: 0;
+    }
     
     .landing {
       background: #111;
+      height: 100vh;
     }
 
     .landing__space {
@@ -35,16 +50,16 @@
     }
 
     @keyframes logo-rotate {
-    to {
-        transform: rotate(-360deg)
+      to {
+          transform: rotate(-360deg)
+      }
     }
-}
   </style>
 </head>
 
 <body>
   <div class="landing" >
-    <div class="landing__space fixed"></div>
+    <div class="landing__space"></div>
   </div>
 </body>
 
