@@ -1,2 +1,6 @@
+{
+  let animal: (string | number)[] = ["momo", 12, "red"];
 
-let animal: (string | number)[] = ["momo", "red", 12];
+  // 元组
+  let tuple: [string, number, string] = ["momo", 12, "momo"];
+}
