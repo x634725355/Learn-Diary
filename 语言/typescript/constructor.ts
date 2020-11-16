@@ -10,7 +10,7 @@
 
   class Teacher extends Person {
     constructor(public age: number) {
-      super('kaka', new Date().setMonth(24))
+      super('kaka', new Date().setMonth(24));
     }
   }
 
