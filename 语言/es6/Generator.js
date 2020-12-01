@@ -147,4 +147,41 @@
 
 }
 
+{
+  // TODO: 7. yield* 表达式
+  function* foo() {
+    yield 'x';
+    yield 'a';
+    yield 'b';
+    yield 'y';
+  }
+
+  function* bar() {
+    yield 'x';
+    for (let v of foo()) {
+      yield v;
+    }
+    yield 'y';
+  }
+
+  for (let v of bar()) {
+    console.log(v);
+  }
+
+  function* getFuncWithReturn() {
+    yield 'a';
+    yield 'b';
+
+    return 'The result';
+  }
+  
+  function* logReturned(genObj) {
+    let result = yield* genObj;
+    console.log(result);
+  }
+
+  console.log([...logReturned(getFuncWithReturn())]);
+
+}
+
 
