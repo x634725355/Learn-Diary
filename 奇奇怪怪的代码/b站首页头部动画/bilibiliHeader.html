@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B站头部</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            position: relative;
+            top: 0;
+            width: 1950px;
+            height: 178px;
+            overflow: hidden;
+        }
+
+        img {
+            width: 1950px;
+            height: 178px;
+        }
+        
+        .layer {
+            position: absolute;
+            top: 0;
+        }
+
+        .left {
+            filter: blur(5px);
+        }
+
+        .person33 {
+            filter: blur(5px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="layer" >
+            <img class="back" src="./img/background.png" alt="">
+        </div>
+        <div class="layer" >
+            <img class="person22" src="./img/person22.png" alt="">
+        </div>
+        <div class="layer" >
+            <img class="hill" src="./img/hill.png" alt="">
+        </div>
+        <div class="layer" >
+            <img class="leaves" src="./img/leaves.png" alt="">
+        </div>
+        <div class="layer" >
+            <img class="person33" src="./img/person33.png" alt="">
+        </div>
+        <div class="layer" >
+            <img class="left" src="./img/left.png" alt="">
+        </div>
+    </header>
+</body>
+<script>
+    window.onload = function () {
+        let header = document.querySelector("header");
+        let back = document.querySelector(".back");
+        let person22 = document.querySelector(".person22");
+        let hill = document.querySelector("hill");
+        let leaves = document.querySelector("leaves");
+        let person33 = document.querySelector("person33");
+        let left = document.querySelector("left");
+
+        header.addEventListener("mouseenter", (event) => {
+            console.log("事件选择器", event);
+            let initX = event.pageX;
+            header.onmousemove = (e) => {
+                // 背景
+                back.style.filter = `blur(${Math.abs(4 - (e.pageX - initX) / 60)}px)`;
+
+                // left
+            };
+        })
+
+        header.addEventListener("mouseleave", (event) => {
+            
+        });
+
+        console.log("header", header);
+    }
+    
+</script>
+</html>
