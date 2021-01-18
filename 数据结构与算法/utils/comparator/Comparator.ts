@@ -1,6 +1,6 @@
-interface numStr {
-    a: string | number,
-    b: string | number
+interface Any {
+    a: any,
+    b: any
 }
 
 export default class Comparator {
@@ -14,20 +14,20 @@ export default class Comparator {
         this.compare = compareFunction || Comparator.defaultCompareFunction;
     }
 
-    static defaultCompareFunction(a: numStr, b: numStr): Number {
+    static defaultCompareFunction(a: Any, b: Any): Number {
         if (a === b) return 0;
 
         return a < b ? -1 : 1;
     }
 
-    equal(a, b): boolean {
+    equal(a: Any, b: Any): boolean {
         return this.compare(a, b) === 0;
     }
 
     /**
      * 检查 a 小于 b 吗
      */
-    lessThan(a, b): boolean {
+    lessThan(a: Any, b: Any): boolean {
         return this.compare(a, b) < 0;
     }
 
@@ -36,7 +36,33 @@ export default class Comparator {
      * @param a 
      * @param b 
      */
-    greaterThan(a, b): boolean {
+    greaterThan(a: Any, b: Any): boolean {
         return this.compare(a, b) > 0;
+    }
+
+    /**
+     * 检查变量“a”是否小于或等于“b”。
+     * @param a 
+     * @param b 
+     */
+    lessThanOrEqual(a: Any, b: Any): boolean {
+        return this.lessThan(a, b) || this.equal(a, b);
+    }
+
+    /**
+     * 检测变量a是否大于等于b
+     * @param a 
+     * @param b 
+     */
+    greaterThanOrEqual(a: Any, b: Any): boolean {
+        return this.greaterThan(a, b) || this.equal(a, b);
+    }
+
+    /**
+     * 反转比较顺序
+     */
+    reveres(): void {
+        const compareOriginal = this.compare;
+        this.compare = (a, b) => compareOriginal(b, a);
     }
 }
