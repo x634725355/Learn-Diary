@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflect</title>
+    <style>
+        .tc {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h3 class="tc" >开始讲课！！</h3>
+    <h4 class="momo" >一个简单的响应式函数</h4>
+</body>
+<script>
+    let eventQueue = new Set();
+
+    let ob = fn => eventQueue.add(fn);
+    let observer = obj => new Proxy(obj, { set });
+
+    function set(target, name, vlaue, receiver) {
+        let result = Reflect.set(target, name, vlaue, receiver);
+
+        eventQueue.forEach(p => p());
+
+        return result;
+    }
+
+    const person = observer({name: "momo", age: "18"});
+
+    function dataChange() {
+        console.log("我被触发了");
+        document.querySelector(".momo").innerHTML = `一个简单的响应式函数name: ${person.name}age: ${person.age}`;
+    }
+
+    ob(dataChange);
+
+    person.name = "kaka";
+
+</script>
+</html>
