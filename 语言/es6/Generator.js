@@ -174,7 +174,7 @@
 
     return 'The result';
   }
-  
+
   function* logReturned(genObj) {
     let result = yield* genObj;
     console.log(result);
@@ -182,6 +182,78 @@
 
   console.log([...logReturned(getFuncWithReturn())]);
 
+}
+
+
+{
+  // TODO: 9. Generator 函数的this
+
+  // 那么，有没有办法让 Generator 函数返回一个正常的对象实例，既可以用next方法，又可以获得正常的this？
+  function* F() {
+    this.a = 1;
+    yield this.b = 2;
+    yield this.c = 3;
+  }
+
+  let obj = {};
+  let f = F.call(F.prototype);
+
+  f.next();
+  f.next();
+  f.next();
+
+  console.log(f.a); // 1
+  console.log(f.b); // 2
+  console.log(f.c); // 3
+
+}
+
+{
+  // TODO: 10. Generator 与状态机
+  let ticking = true;
+  let clock = function() {
+    if (ticking) 
+      console.log("Tick!");
+    else 
+      console.log("Tock!");
+    ticking = !ticking;
+  }
+
+  // 如果使用Generator实现, 如下
+  let clock1 = function* () {
+    while(true) {
+      console.log('Tick!');
+      yield;
+      console.log('Tock!');
+      yield;
+    }
+  }
+
+  let momo = clock1();
+  momo.next();
+  momo.next();
+  momo.next();
+  momo.next();
+
+}
+
+{
+  // TODO: 11. Generator 应用
+
+  // function* main() {
+  //   let result = yield request("http://localhost:3000/search?keywords=海阔天空");
+  //   let resp = JSON.parse(result);
+  //   console.log(resp.value);
+  // }
+
+  // function request(url) {
+  //   fetch(url).then((response) => {
+  //     it.next(response);
+  //   })
+  // }
+
+  // var it = main();
+  // it.next();
 }
 
 
