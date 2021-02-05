@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>白日梦想家</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="vue" >
+        <span>歌词滚动</span>
+        <span>歌名: {{songName}}</span>
+    </div>
+</body>
+
+<script>
+    const app = {
+        data() {
+            return {
+                songName: "白日梦想家"
+            };
+        },
+    };
+
+    Vue.createApp(app).mount("#vue");
+
+    console.log(Vue);
+</script>
+</html>
