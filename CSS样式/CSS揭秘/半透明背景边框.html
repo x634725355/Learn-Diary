@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>背景与边框</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            background-color: gray;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            margin: 10px auto;
+            border: 10px solid hsla(0, 0%, 100%, .5);
+            background: pink;
+            background-clip: padding-box;
+        }
+
+        .border-inner-radius {
+            background: tan;
+            border-radius: .8em;
+            padding: 1em;
+            box-shadow: 0 0 0 .34em #655;
+            outline: .6em solid #655;
+            width: 5%;
+            margin: 10px auto;
+        }
+
+        .stripe-background {
+            height: 200px;
+            width: 80%;
+            margin: 10px auto;
+            background: linear-gradient(#fb3 33.3%,#58a 0, #58a 66.6%, yellowgreen 0);
+            background-size: 100% 45px;
+            background-repeat: round;
+        }
+
+        .vertical-stripes {
+            height: 200px;
+            width: 80%;
+            margin: 10px auto;
+            background: linear-gradient(90deg, #fb3 33.3%, #58a 0, #58a 66.6%, yellowgreen 0);
+            background-size: 45px 100%;
+            background-repeat: round;
+        }
+
+        .bevel-stripes {
+            height: 200px;
+            width: 80%;
+            margin: 10px auto;
+            /* background: linear-gradient(45deg, #fb3 25%, #58a 0, #58a 50%, #fb3 0, #fb3 75%, #58a 0); */
+            /* background-size: 42.4px 42.4px; */
+            /* background-repeat: round; */
+            /* 重复渲染渐变色 */
+            background: repeating-linear-gradient(45deg, #fb3, #fb3 15px, #58a 0, #58a 30px);
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="tc">半透明背景边框</h1>
+    <div class="box"></div>
+
+    <h1 class="tc">边框内圆角</h1>
+    <div class="border-inner-radius"></div>
+
+    <h1 class="tc" >条纹背景</h1>
+    <div class="stripe-background" ></div>
+
+    <h1>垂直条纹</h1>
+    <div class="vertical-stripes" ></div>
+
+    <h1>斜向条纹</h1>
+    <div class="bevel-stripes" ></div>
+</body> 
+
+</html>

@@ -6,11 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-
     body {
       min-width: 100px;
       min-height: 100%;
-      font-family: Roboto,-apple-system,Helvetica Neue,Helvetica,Arial,sans-serif;
+      font-family: Roboto, -apple-system, Helvetica Neue, Helvetica, Arial, sans-serif;
       -ms-text-size-adjust: 100%;
       -webkit-text-size-adjust: 100%;
       -webkit-font-smoothing: antialiased;
@@ -20,7 +19,7 @@
       font-size: 14px;
       margin: 0;
     }
-    
+
     .landing {
       background: #111;
       height: 100vh;
@@ -51,15 +50,42 @@
 
     @keyframes logo-rotate {
       to {
-          transform: rotate(-360deg)
+        transform: rotate(-360deg)
       }
+    }
+
+    .login {
+      display: inline-block;
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      text-align: center;
+      background-color: #fff;
+      padding: 50px;
+    }
+
+    .login-account {
+      margin-bottom: 20px;
     }
   </style>
 </head>
 
 <body>
-  <div class="landing" >
+  <div class="landing">
     <div class="landing__space"></div>
+
+    <div class="login" >
+      <div class="login-account" >
+        <label for="account">账号</label>
+        <input type="text" name="account" >
+      </div>
+      <div class="login-password" >
+        <label for="password">密码</label>
+        <input type="password" name="password" >
+      </div>
+
+    </div>
   </div>
 </body>
 
