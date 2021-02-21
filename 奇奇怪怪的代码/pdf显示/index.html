@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>pdf的使用</title>
+</head>
+
+<body>
+    <div id="container">
+        <canvas id="pop"></canvas>
+    </div>
+    <script src="./string.js"></script>
+    <script src="./pdf.js"></script>
+    <script src="./pdf.worker.js"></script>
+    <script>
+        window.onload = () => {
+            var loadingTask = pdfjsLib.getDocument(pdfBase64);
+            loadingTask.promise.then(function (pdf) {
+                // you can now use *pdf* here
+                console.log("这首什么阿", pdf);
+
+                pdf.getPage(1).then(function (page) {
+                    // you can now use *page* here
+                    console.log("momo", page);
+
+                    var scale = 1.5;
+                    var viewport = page.getViewport({ scale: scale, });
+
+                    var canvas = document.getElementById('pop');
+                    var context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    
+
+                    var renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    page.render(renderContext);
+                });
+            });
+
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="id" ></div>
+</body>
+<script>
+    let index = 0;
+    function main() {
+        window.requestAnimationFrame(main);
+
+        index++;
+        
+        document.querySelector(".id").innerHTML = index;
+
+        console.log("这是什么", index);
+    }
+
+    main();
+</script>
+</html>
