@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .content>.momo {
+            font-size: 6rem;
+            font-family: monospace;
+            position: relative;
+        }
+
+        .content>.momo::after {
+            content: "";
+            position: absolute;
+            top: 0px;
+            right: -30px;
+            height: 100%;
+            background-color: #000;
+            width: 20px;
+            border-radius: 2px;
+            display: inline-block;
+        }
+
+        .momo::after {
+            animation: 1.1s cursor steps(2, jump-none) infinite;
+        }
+
+        .momo span {
+            --delay: 10s;
+
+            animation: 0.1s text-in ease-in-out forwards;
+            width: 0ch;
+            overflow: hidden;
+            display: inline-block;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes cursor {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes text-in {
+            0% {
+                width: 0ch;
+            }
+
+            100% {
+                width: 1ch;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <h1 class="momo">Hello,world</h1>
+    </div>
+</body>
+<script lang="javascript">
+    const momo = document.querySelector(".momo");
+    // momo.innerHTML = momo.textContent.replace(/\S/g, "<span>$&</span>")
+    momo.innerHTML = momo.textContent.replace(/\S/g, "<span>$&</span>").replace(/\s/g, "<span>&nsbp;</span>")
+    
+    let delay = 0;
+    // 延迟动画执行时间
+    document.querySelectorAll('span').forEach((span, index) => {
+        delay += 0.1;
+        if (index === 6) delay += 0.3
+
+        span.style.setProperty("--delay", `${delay}s`);
+        
+    });
+</script>
+
+</html>

@@ -1,13 +1,12 @@
 // 有效位
 class valid_bit {
-
     num: number;
-    bit: number;
+    bit: string;
     link: [];
 
-    constructor(b: number, i: number) {
-        this.num = i; // 序号
+    constructor(b: string, i: number) {
         this.bit = b; // 数值
+        this.num = i; // 序号
         this.link = []; // 组成成分, 7 = 4 + 2 + 1
     }
 }
@@ -15,12 +14,12 @@ class valid_bit {
 // 校验位
 class check_bit {
     num: number;
-    bit: number;
+    bit: string;
     link: [];
 
     constructor(i: number) {
-        this.num = i;
         this.bit = null;
+        this.num = i;
         this.link = [];
     }
 }
@@ -32,18 +31,30 @@ function smallest_check_number(k: number):number {
     return r;
 }
 
-// 检测输入字符串是否合乎规范
-function is_standard(string: string):boolean {
-    let mate0: RegExp = /0/g;
-    let mate1: RegExp = /1/g;
+// 有效位
+let valid: string = "1011";
+// 校验位 最小数目
+let check_num = smallest_check_number(Number(valid));
 
-    return string.match(mate0).length + string.match(mate1).length === string.length;
+// 存储字典
+const hammingDictionary = {};
+// 存储海明码
+const hammingCode = [];
+// 储存校验码
+const checkList = [];
+
+hammingCode.push(0);
+
+for (let index = 1; index < valid.length; index++) {
+    const element = new valid_bit(valid[index], index);
+
+    // 向字典中添加位号对应的数值
+    hammingDictionary[`b${index}`] = element;
+    
+    // 向字典中添加
+    hammingCode[index].push(element);
+
+
+
 }
-
-let valid = 1011;
-
-let check = smallest_check_number(valid);
-
-
-
 

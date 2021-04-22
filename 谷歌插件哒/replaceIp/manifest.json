@@ -1,0 +1,35 @@
+{
+    "name": "purifyThreeColor Replace",
+    "description": "用来替换域名与ip",
+    "version": "1.0",
+    "manifest_version": 2,
+    "icons": {
+        "16": "images/smile.png",
+        "48": "images/smile.png",
+        "128": "images/smile.png"
+    },
+    "browser_action": {
+        "default_popup": "hello.html",
+        "default_icon": "images/smile.png"
+    },
+    "commands": {
+        "_execute_browser_action": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+F",
+                "mac": "MacCtrl+Shift+F"
+            },
+            "description": "Opens hello.html"
+        }
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "http://110.185.169.13:90/*"
+            ],
+            "js": [
+                "js/main.js"
+            ],
+            "run_at": "document_start"
+        }
+    ]
+}
